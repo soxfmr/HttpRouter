@@ -1,0 +1,12 @@
+group 'com.soxfmr.httprouter'
+version '0.12-SNAPSHOT'
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
