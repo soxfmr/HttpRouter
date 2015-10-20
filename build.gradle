@@ -1,7 +1,7 @@
-group 'com.soxfmr.httprouter'
-version '0.12-SNAPSHOT'
-
 apply plugin: 'java'
+apply plugin: 'maven'
+
+group 'com.soxfmr.httprouter'
 
 repositories {
     mavenCentral()
