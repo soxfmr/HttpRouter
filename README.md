@@ -7,12 +7,26 @@ HttpRouter is a HTTP library for Android implements by URLConnection.
 * Ban the cookies and restore it for next request
 
 # At A Glance
+* [Getting Start](#getting-start)
 * [Forward A Simple HTTP Request](#0x0-forward-a-simple-http-request)
 * [Forward A HTTP Post Request](#0x1-forward-a-http-post-request)
 * [Attach the HTTP headers](#0x2-attach-the-http-headers)
 * [HTTP Request Chains, With Powerful Middleware](#0x3-http-request-chains-with-powerful-middleware)
 * [Backward to Give the HTTP Response](#0x4-backward-to-give-the-http-response)
 * [To Maintain the Cookies](#0x5-to-maintain-the-cookies)
+
+## Getting Start
+Reference as a Gradle project
+```groovy
+repositories {
+    jcenter()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+     compile 'com.github.soxfmr:HttpRouter:v0.14'
+}
+```
 
 ## 0x0 Forward A Simple HTTP Request
 ```java
@@ -63,18 +77,18 @@ Sometime, you may want to modify the next request properties with the informatio
 private static final int RC_ATTACH_INFO = 0x1;
 
 router.registerMiddleListener(new MiddlewareListener() {
-    
+
     public void handle(HttpRequest nextRequest, int requestCode, HttpResponse prevResponse) {
         if (requestCode == RC_ATTACH_INFO) {
             int firstArticleId = findFirstArticleId(prevResponse.toString());
-            
+
             String origin = nextRequest.getURI();
             nextRequest.setURI(String.format(origin, firstArticleId));
             // OR
             // nextRequest.addParam("id", firstArticleId);
         }
     }
-    
+
 });
 
 router.addRoute(new HttpGet("http://www.example.com"));
@@ -91,23 +105,23 @@ router.setResponseListener(new ResponseListener() {
     public void onCorrupt() {
         System.out.println("Failed to forward this request or the response was corrupted.");
     }
-    
+
     // RESPONSE_CODE >= 200
     public void onSuccess(HttpResponse response) {
         System.out.println("To reach every corner of the world :)");
     }
-    
+
     // RESPONSE_CODE >= 300
     public void onRedirect(HttpResponse response) {
         HttpHeader responseHeaders = response.getResponseHeaders();
         System.out.println("Redirect to: " + responseHeaders.getHeaderValue("Location"));
     }
-    
+
     // RESPONSE_CODE >= 400
     public void onFailed(HttpResponse response) {
         System.out.println("Missed something?");
     }
-    
+
     // RESPONSE_CODE >= 500
     public void onInternalError(HttpResponse response) {
         System.out.println("An error occurred on remote internal server.");
@@ -117,11 +131,11 @@ router.setResponseListener(new ResponseListener() {
 If you just want to handle it more easier, we do so
 ```java
 router.setResponseLiteListener(new ResponseLiteListener() {
-    
+
     public void onFinished(HttpResponse response) {
         System.out.println("Response Code: " + response.getResponseCode());
     }
-    
+
 });
 ```
 
