@@ -1,6 +1,5 @@
 .gradle
-build/*
-!build/libs
+build
 src/test
 
 # Ignore Gradle GUI config
