@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-     compile 'com.github.soxfmr:HttpRouter:0.15'
+     compile 'com.github.soxfmr:HttpRouter:0.16'
 }
 ```
 
@@ -162,6 +162,8 @@ router.addRoute(new HttpGet("https://www.google.com").enableCookies());
 ```
 
 ## Update Log
+* 0.16
+  * Compatibility fixed
 * 0.15
   * Auto-release for the executor of the thread pool
 * 0.14
