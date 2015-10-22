@@ -14,6 +14,7 @@ HttpRouter is a HTTP library for Android implements by URLConnection.
 * [HTTP Request Chains, With Powerful Middleware](#0x3-http-request-chains-with-powerful-middleware)
 * [Backward to Give the HTTP Response](#0x4-backward-to-give-the-http-response)
 * [To Maintain the Cookies](#0x5-to-maintain-the-cookies)
+* [Update Log](#update-log)
 
 ## Getting Start
 Reference as a Gradle project
@@ -24,7 +25,7 @@ repositories {
 }
 
 dependencies {
-     compile 'com.github.soxfmr:HttpRouter:v0.14'
+     compile 'com.github.soxfmr:HttpRouter:0.15'
 }
 ```
 
@@ -61,7 +62,8 @@ router.forward(new HttpPost("https://www.google.com")
 ```
 But I am so lazy enough, em. Let's attach the basic http headers. Notice that the basic headers will be attach to the request by default when the headers is empty.
 ```java
-router.forward(new HttpPost("https://www.google.com").attachHeaders(new BasicHttpHeader()));
+router.forward(new HttpPost("https://www.google.com")
+            .attachHeaders(new BasicHttpHeader()));
 ```
 
 ## 0x3 HTTP Request Chains, With Powerful Middleware
@@ -78,7 +80,8 @@ private static final int RC_ATTACH_INFO = 0x1;
 
 router.registerMiddleListener(new MiddlewareListener() {
 
-    public void handle(HttpRequest nextRequest, int requestCode, HttpResponse prevResponse) {
+    public void handle(HttpRequest nextRequest, int requestCode,
+                        HttpResponse prevResponse) {
         if (requestCode == RC_ATTACH_INFO) {
             int firstArticleId = findFirstArticleId(prevResponse.toString());
 
@@ -140,7 +143,7 @@ router.setResponseLiteListener(new ResponseLiteListener() {
 ```
 
 ## 0x5 To Maintain the Cookies
-By default, the cookies which is receive from server will be maintain by CookieContainer automatically. You can refuse the cookeis as you want.
+By default, the cookies which is receive from server will be maintain by CookieContainer automatically. You can refuse the cookies as you want.
 ```java
 router.forward(new HttpGet("https://www.google.com").disableCookies());
 ```
@@ -157,6 +160,12 @@ router.addRoute(new HttpGet("https://www.google.com").restoreCookies());
 // When you call enableCookies() instead of restoreCookies() that the request will attach an empty cookies
 router.addRoute(new HttpGet("https://www.google.com").enableCookies());
 ```
+
+## Update Log
+* 0.15
+  * Auto-release for the executor of the thread pool
+* 0.14
+  * First release
 
 ## Licenses and Notices
 Publish under MIT License
