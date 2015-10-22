@@ -18,8 +18,6 @@ public class RouterService {
 
     public RouterService(HttpRouter httpRouter) {
         routeList = new ArrayList<>();
-
-        executorService = Executors.newSingleThreadExecutor();
     }
 
     /**
@@ -38,6 +36,7 @@ public class RouterService {
         if (routeList.size() == 0)
             return ;
 
+        executorService = Executors.newSingleThreadExecutor();
         try {
             DispatchRoute dispatchRoute;
             for (int i = 0, size = routeList.size(); i < size; i++) {
@@ -45,13 +44,11 @@ public class RouterService {
                 executorService.execute(dispatchRoute);
             }
         } finally {
+            // Release the executor service
+            executorService.shutdown();
+            executorService = null;
             // Remove all of service task
             routeList.clear();
         }
     }
-
-    public void release() {
-        executorService.shutdown();
-    }
-
 }

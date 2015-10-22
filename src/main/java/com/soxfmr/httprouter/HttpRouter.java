@@ -86,10 +86,6 @@ public class HttpRouter {
         triggerResponseHandler(httpResponse);
     }
 
-    public void shutdown() {
-        routerService.release();
-    }
-
     private void triggerResponseHandler(HttpResponse httpResponse) {
         // For more simplify interface to handle the response
         if (responseLiteListener != null)
