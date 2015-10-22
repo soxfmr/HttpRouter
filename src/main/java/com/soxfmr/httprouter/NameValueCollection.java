@@ -23,7 +23,7 @@ public class NameValueCollection extends AbstractCollection<NameValuePair> {
     @Override
     public Iterator<NameValuePair> iterator() {
         // Give the iterator from pair list
-        Iterator<String> pairIterator = pairList.keySet().iterator();
+        final Iterator<String> pairIterator = pairList.keySet().iterator();
         // Resolve the String iterator to NameValuePair
         return new Iterator<NameValuePair>() {
 

@@ -22,7 +22,7 @@ public class DispatcherImpl {
         this.middlewareListener = middlewareListener;
     }
 
-    public DispatchRoute newDispatchRoute(HttpRequest httpRequest, int requestCode) {
+    public DispatchRoute newDispatchRoute(final HttpRequest httpRequest, final int requestCode) {
         return new DispatchRoute() {
             @Override
             public void dispatch() {

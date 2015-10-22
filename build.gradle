@@ -3,6 +3,9 @@ apply plugin: 'maven'
 
 group = 'com.soxfmr.httprouter'
 
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
 repositories {
     mavenCentral()
 }
